@@ -2,7 +2,7 @@
 type: post
 author: koba04
 email: koba0004@gmail.com
-tags: self
+tags: morpheus
 slug: start-english-version-blog-using-morpheus
 title: Start English version blog using Morpheus!
 description: My first post in Enlglish
