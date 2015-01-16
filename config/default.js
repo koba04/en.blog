@@ -14,16 +14,16 @@ module.exports = {
   postPerPage: 3, // number of posts per page
   siteUrl: 'http://localhost:3000', // the url of your website
   useSSL: false, // if true it redirects all incoming requests to the https url
-  siteTitle: 'Morpheus',
-  theme: 'blablabla', // currently used theme
-  siteDescription: '- say hi to the next generation web publishing platform -',
+  siteTitle: 'koba04 blog(en)',
+  theme: 'koba04', // currently used theme
+  siteDescription: 'my english version blog. about programming',
   port: 3000,
   ip: '127.0.0.1',
   authors: {
-    'youreamail@yourwebsite.something': {
-      meta: 'I really like to write :)'
+    'koba04': {
+      meta: ':)'
     }
   },
-  googleAnalytics : 'UA-XXXXX', //your google analytics tracking code
-  disqusComments : '' //your disqus shortname
+  googleAnalytics : '', //your google analytics tracking code
+  disqusComments : 'koba04-english-blog' //your disqus shortname
 };
