@@ -43,7 +43,7 @@ var Html = React.createClass({
       <body dangerouslySetInnerHTML={{__html: this.props.markup}}></body>
     <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-    <script src="/assets/dist/bundle-744ebd5a.min.js"></script>
+    <script src="/assets/dist/bundle-8e31117c.min.js"></script>
     </html>
     )
   }

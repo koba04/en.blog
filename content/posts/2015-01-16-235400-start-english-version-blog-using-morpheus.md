@@ -22,6 +22,10 @@ This blog is built by Morpheus.
 
 https://github.com/vesparny/morpheus
 
+This blog's repository is here.
+
+https://github.com/koba04/en.blog
+
 Morpheus is the isomorphic architecture by React.js.
 As a result, It's able to do server-side rendering(for SEO, performance advantage), and it is built by React component.
 
