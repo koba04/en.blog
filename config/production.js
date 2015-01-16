@@ -5,5 +5,5 @@ module.exports = {
   siteUrl: 'http://en.blog.koba04.com', // the url of your website
   port: process.env.PORT,
   ip: '0.0.0.0',
-  googleAnalytics : '' //your google analytics tracking code
+  googleAnalytics : 'UA-8875970-6' //your google analytics tracking code
 };
