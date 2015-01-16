@@ -16,7 +16,7 @@ module.exports = {
   useSSL: false, // if true it redirects all incoming requests to the https url
   siteTitle: 'koba04 blog(en)',
   theme: 'koba04', // currently used theme
-  siteDescription: 'my english version blog. about programming',
+  siteDescription: 'about programming. in Japanese http://blog.koba04.com/',
   port: 3000,
   ip: '127.0.0.1',
   authors: {
