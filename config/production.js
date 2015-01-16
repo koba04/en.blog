@@ -1,7 +1,6 @@
 'use strict';
 
 module.exports = {
-  log: {},
   debug: false, //useful for seeing some logs in the browser console
   siteUrl: 'koba04-english-blog.herokuapp.com', // the url of your website
   port: 80,
