@@ -14,7 +14,7 @@ module.exports = {
   postPerPage: 3, // number of posts per page
   siteUrl: 'http://localhost:3000', // the url of your website
   useSSL: false, // if true it redirects all incoming requests to the https url
-  siteTitle: 'koba04 blog(en)',
+  siteTitle: 'en.blog.koba04',
   theme: 'koba04', // currently used theme
   siteDescription: 'about programming. in Japanese http://blog.koba04.com/',
   port: 3000,
