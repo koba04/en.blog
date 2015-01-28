@@ -14,7 +14,7 @@ Currently, Morpheus isn't published to npm yet.
 
 https://github.com/vesparny/morpheus/issues/14
 
-You need to set up it in reference to [README](https://github.com/vesparny/morpheus)
+You need to set up Morpheus in reference to [README](https://github.com/vesparny/morpheus)
 
 ```
 % mkdir morpheus-sample && cd morpheus-sample
@@ -25,26 +25,27 @@ You need to set up it in reference to [README](https://github.com/vesparny/morph
 % gulp install
 % gulp watch
 ```
-Therefore, you can access your blog at http://localhost:3000/ .
+
+Now you can access your blog at http://localhost:3000/ .
 
 
 ### Create Application on Heroku
 
-You create an application on Heroku for you blog.
+* You need to create an application on Heroku for your blog.
 
 ![create application](/content/images/posts/deploy-morpheus-on-heroku/create-app.png)
 
 
 ### Heroku Config Variables
 
-Set `NODE\_ENV` as `production`.
+* Set `NODE\_ENV` as `production` to config variable.
 
 ![heroku config](/content/images/posts/deploy-morpheus-on-heroku/heroku-config.png)
 
 
 ### Setting production.json
 
-Set URL, IP and port.
+* Add URL, IP and port to `production.json`.
 
 ```json
 module.exports = {
@@ -83,6 +84,9 @@ module.exports = {
 [2015-01-23T16:09:13.592Z]  INFO: app/morpheus/64856 on koba04.local: Worker 64856 is running morpheus@0.0.1-alpha1 in production mode on port NaN
 ```
 
+* Now dist `*.min.js` and `*.min.css` were generated for production environment.
+
+
 ### Deploy
 
 ```
@@ -115,3 +119,14 @@ To https://git.heroku.com/morpheus-sample.git
  * [new branch]      master -> master
 ```
 
+Now you can access http://{YOUR_APP_NAME}.herokuapp.com/ !
+
+Enjoy it!
+
+
+### Note
+
+>>
+Apps that have only one 1X or 2X web dyno running will have that web dyno sleep after one hour of inactivity.
+
+https://devcenter.heroku.com/articles/dynos#dyno-sleeping
