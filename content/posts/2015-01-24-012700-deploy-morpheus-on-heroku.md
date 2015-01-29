@@ -8,6 +8,10 @@ title: Deploy Morpheus on heroku
 description: How to deploy Morpheus on heroku.
 ---
 
+This blog is hosted on Heroku.
+
+This is the procedure.
+
 ### Work on local
 
 Currently, Morpheus isn't published to npm yet.
@@ -38,14 +42,14 @@ Now you can access your blog at http://localhost:3000/ .
 
 ### Heroku Config Variables
 
-* Set `NODE\_ENV` as `production` to config variable.
+* Set `NODE_ENV` as `production` to config variable.
 
 ![heroku config](/content/images/posts/deploy-morpheus-on-heroku/heroku-config.png)
 
 
 ### Setting production.json
 
-* Add URL, IP and port to `production.json`.
+* Add URL, IP and Port to `production.json`.
 
 ```json
 module.exports = {
@@ -121,7 +125,7 @@ To https://git.heroku.com/morpheus-sample.git
 
 Now you can access http://{YOUR_APP_NAME}.herokuapp.com/ !
 
-Enjoy it!
+Heve fun!
 
 
 ### Note
