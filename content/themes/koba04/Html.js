@@ -38,12 +38,12 @@ var Html = React.createClass({
       <link rel="alternate" type="application/rss+xml" title={siteGlobals.siteTitle + " RSS"} href={siteUrl + "/rss/"} />
 
       <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400" />
-      <link rel="stylesheet" href="/assets/dist/main-d52a0721.min.css" />
+      <link rel="stylesheet" href="/assets/dist/main-ddfd64f6.min.css" />
     </head>
       <body dangerouslySetInnerHTML={{__html: this.props.markup}}></body>
     <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
-    <script src="/assets/dist/bundle-5ea47da4.min.js"></script>
+    <script src="/assets/dist/bundle-6f46c957.min.js"></script>
     </html>
     )
   }
