@@ -13,3 +13,7 @@ A web application engineer.
 * https://twitter.com/koba04/
 * https://github.com/koba04/
 
+This blog. Pull request is welcome! :)
+
+* https://github.com/koba04/en.blog
+

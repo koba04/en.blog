@@ -17,7 +17,7 @@ var Header = React.createClass({
       <header className='main-header'>
         <nav className='main-nav overlay clearfix'>
         <a className="menu-button fright icon-feed" href={siteUrl + '/rss/'}>Subscribe</a>
-        <NavLink href='/about/' context={this.props.context} className="menu-button">about me</NavLink>
+        <NavLink href='/about/' context={this.props.context} className="menu-button">about</NavLink>
         </nav>
         <div className='vertical'>
           <div className='main-header-content inner'>
