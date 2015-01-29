@@ -5,7 +5,7 @@ email: koba0004@gmail.com
 tags: morpheus,heroku
 slug: deploy-morpheus-on-heroku
 title: Deploy Morpheus on heroku
-description: How to deploy Morpheus on heroku.
+description: How to deploy Morpheus on Heroku.
 ---
 
 This blog is hosted on Heroku.
