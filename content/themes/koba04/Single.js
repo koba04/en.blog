@@ -81,7 +81,7 @@ var Single = React.createClass({
       footer =
       <footer className="post-footer">
         <figure className="author-image">
-        <NavLink href={this.props.siteUrl} context={this.props.context} className="img" style={style} ><span className="hidden">alessandro arnodo's Picture</span></NavLink>
+        <NavLink href='/' context={this.props.context} className="img" style={style} ><span className="hidden">alessandro arnodo's Picture</span></NavLink>
         </figure>
         <section className="author">
         <h4>{this.state.single.author}</h4>
