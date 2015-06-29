@@ -174,7 +174,7 @@ default class InputArtist extends React.Component {
 #### PropTypes
 
 Prop is a component interface.
-I'd like to write a documetation against the Prop.
+I'd like to write a documetation for the Prop.
 Because of this, I wrote the Prop documentation at the propTypes.
 
 ```js
