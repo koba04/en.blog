@@ -44,7 +44,7 @@ var Html = React.createClass({
     <script dangerouslySetInnerHTML={{__html: this.props.state}}></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script src="/assets/dist/bundle-3c030f8d.min.js"></script>
+    <script src="/assets/dist/bundle-b99a67be.min.js"></script>
     </html>
     )
   }
