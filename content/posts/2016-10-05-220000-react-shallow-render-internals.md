@@ -468,30 +468,7 @@ You can see the transaction cycle in React code.
 
 * https://github.com/facebook/react/blob/master/src/renderers/shared/utils/Transaction.js#L32-L53
 
-```
- *                       wrappers (injected at creation time)
- *                                      +        +
- *                                      |        |
- *                    +-----------------|--------|--------------+
- *                    |                 v        |              |
- *                    |      +---------------+   |              |
- *                    |   +--|    wrapper1   |---|----+         |
- *                    |   |  +---------------+   v    |         |
- *                    |   |          +-------------+  |         |
- *                    |   |     +----|   wrapper2  |--------+   |
- *                    |   |     |    +-------------+  |     |   |
- *                    |   |     |                     |     |   |
- *                    |   v     v                     v     v   | wrapper
- *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
- * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
- * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | |   | |   |   |         |   |   | |   | |
- *                    | +---+ +---+   +---------+   +---+ +---+ |
- *                    |  initialize                    close    |
- *                    +-----------------------------------------+
- ```
+![transaction](/content/images/posts/react-shallow-render-internals/transaction.png)
 
 I'd like to try to fix it.
 
@@ -1009,75 +986,12 @@ This is a little long story. the following is a overview.
 
 * ShallowRender
 
-```no-highlight
---------------------------
-| ShallowRenderer.render |
---------------------------
-     |
-     | <MyComponent />
-     |
---------------------------------------------------
-|  ---------------------------------             |
-| | ReactReconciler#mountCompnent |              |
-|  ---------------------------------             |
-|         |                                      |
-|    -----------------------------------------   |
-|    | ShallowComponentWrapper#mountCompnent |   |
-|    -----------------------------------------   |
-|             |                                  |
-|        -------------------------               |
-|        | ReactComponent#render |               |
-|        -------------------------               |
---------------------------------------------------
-      |
-      | <div><Child foo="bar"><p>test</p></div> 
-      |
---------------------------------------------------
-|  ---------------------------------             |
-|  | ReactReconciler#mountCompnent |             |
-|  ---------------------------------             |
-|         |                                      |
-|    ---------------------------------------     |
-|    | NoopInternalComponent#mountCompnent |     |
-|    ---------------------------------------     |
---------------------------------------------------
-      |
-      | <div><Child foo="bar"><p>test</p></div> 
-      |
-```
+![ShallowRender](/content/images/posts/react-shallow-render-internals/shallow-render.png)
+
 
 * ReactDOM.render
 
-```no-highlight
--------------------
-| ReactDOM.render |
--------------------
-     |
-     | <MyComponent />
-     |
----------------------------------------------------
-|  ---------------------------------   recursive  |
-|  | ReactReconciler#mountCompnent | <----------- |
-|  ---------------------------------            | |
-|         |                                     | |
-|    -----------------------------------------  | |
-|    | ReactCompositeComponent#mountCompnent |  | |
-|    |               or                      |  | |
-|    | ReactHostComponent#mountComponent     |  | |
-|    -----------------------------------------  | |
-|             |                                 | |
-|        -------------------------              | |
-|        | ReactComponent#render |              | |
-|        -------------------------              | |
-|                 |                             | |
-|                 ------------------------------| |
----------------------------------------------------
-      |
-      | (<div><Child foo="bar"><p>test</p></div>)
-      |                ↓
-      | <div><div>bar</div><p>test</p></div>  
-      |
-```
+![ReactDOM](/content/images/posts/react-shallow-render-internals/react-dom.png)
 
 I think ReactShallowRender is a good place for starting to understand React rendering cycle though it has some hacks.
 
