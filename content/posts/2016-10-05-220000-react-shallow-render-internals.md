@@ -99,7 +99,7 @@ the `render` is for
 
 ## ReactDefaultInjection.inject
 
-`ReactDefaultInjection` is for to register event systems, host components(`ReactDOMComponent`, `ReactDOMTextComponent`...) and update mechanisms(`ReconcilerTransaction`, `batchStrategy`...).
+`ReactDefaultInjection` is to register event systems, host components(`ReactDOMComponent`, `ReactDOMTextComponent`...) and update mechanisms(`ReconcilerTransaction`, `batchStrategy`...).
 
 I might write about React injection system as a another entry.
 
