@@ -996,12 +996,12 @@ This is a little long story. the following is a overview.
 ```
 
 1. TestUtils.createRenderer().render(`<MyComponent />`);
-2. ReactReconciler#mountCompnent `<MyComponent />`
-3. ShallowComponentWrapper#mountCompnent (ReactCompositeComponent#mountCompnent) `<MyComponent />`
-4. render <MyComponent />
-5. ReactReconciler#mountCompnent `<div><Child foo="bar"><p>test</p></div>`
-6. NoopInternalComponent#mountCompnent (noop) 
-7. return rendered ReactElement `<div><Child foo="bar"></p>test</p></div>`
+2. ReactReconciler#mountCompnent - `<MyComponent />`
+3. ShallowComponentWrapper#mountCompnent (ReactCompositeComponent#mountCompnent) - `<MyComponent />`
+4. ReactComponent#render - `<MyComponent />`
+5. ReactReconciler#mountCompnent - `<div><Child foo="bar"><p>test</p></div>`
+6. NoopInternalComponent#mountCompnent (noop function) - `<div><Child foo="bar"></p>test</p></div>`
+7. return the rendered ReactElement - `<div><Child foo="bar"></p>test</p></div>`
 
 * ShallowRender
 
