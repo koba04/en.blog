@@ -1009,7 +1009,7 @@ This is a little long story. the following is a overview.
 
 * ShallowRender
 
-```
+```no-highlight
 --------------------------
 | ShallowRenderer.render |
 --------------------------
@@ -1048,7 +1048,7 @@ This is a little long story. the following is a overview.
 
 * ReactDOM.render
 
-```
+```no-highlight
 -------------------
 | ReactDOM.render |
 -------------------
