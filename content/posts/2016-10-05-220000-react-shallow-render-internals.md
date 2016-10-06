@@ -464,7 +464,7 @@ If `_batchedRender` used `transaction.perform`, `mountCompnent` is called in tra
 But in transaction, it doesn't work if you use `refs`...
 
 ```
-+  transaction.perform(this._render, this, element, transaction, context);
++  transaction.perform(renderer._render, renderer, element, transaction, context);
 -  renderer._render(element, transaction, context);
 ```
 
