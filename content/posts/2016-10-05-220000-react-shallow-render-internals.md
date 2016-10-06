@@ -90,7 +90,11 @@ ReactShallowRenderer.prototype.render = function(element, context) {
 };
 ```
 
-`render` is for injecting settings for `ReactShallowRenderer`, rendering the element as a batch and returning a rendered ReactElement.
+the `render` is for
+
+* Inject settings for `ReactShallowRenderer`
+* Render the element as a batch
+* Return a rendered ReactElement.
 
 
 ## ReactDefaultInjection.inject
@@ -286,16 +290,16 @@ ReactShallowRenderer.prototype._render = function(element, transaction, context)
 };
 ```
 
-`_render` is rendering ReactComponent with `ReactReconciler`.
+`_render` is rendering an instance of ShallowComponentWrapper with `ReactReconciler`.
 
-If the components has already mounted, `_render` updates ReactComponent with `receiveComponent`, otherwise it mounts ReactComponent with `mountComponent`.
+If the ShallowComponentWrapper has already mounted, `_render` updates ShallowComponentWrapper with `receiveComponent`, otherwise it mounts ShallowComponentWrapper with `mountComponent`.
 
 Now is a mounting phase, let's get into the mouting part.
 
 
 ## Instantiate ShallowComponentWrapper and call mountComponent
 
-This part is for instantiating `ShallowComponentWrapper` and mounting it, which is the root ReactComponent.
+This part is for instantiating `ShallowComponentWrapper` and mounting it, which is the root component.
 
 * https://github.com/facebook/react/blob/v15.3.2/src/test/ReactTestUtils.js#L495-L497
 
@@ -464,13 +468,13 @@ But in transaction, it doesn't work if you use `refs`...
 -  renderer._render(element, transaction, context);
 ```
 
+I'd like to try to fix it.
+
 You can see the transaction cycle in React code.
 
 * https://github.com/facebook/react/blob/master/src/renderers/shared/utils/Transaction.js#L32-L53
 
 ![transaction](/content/images/posts/react-shallow-render-internals/transaction.png)
-
-I'd like to try to fix it.
 
 Back to the `mountCompnent`, `internalInstance` is a instance of `ShallowComponentWrapper`.
 `ShallowComponentWrapper#mountComponent` is in `ReactCompositeComponent`.
@@ -592,15 +596,16 @@ Back to the `mountCompnent`, `internalInstance` is a instance of `ShallowCompone
 
 `ReactCompositeComponent#mountCompnent` is for
 
-* instantiate a component
+* instantiate a ReactComponent
 * initialize properties
-* mount Component
+* mount the ReactComponent
 
 For your reference, in ShallowRenderer, `componentDidMount` is never called because it's being called outside of transaction.
 
-`_constructComponent` is for creating a Component instance.
-What is the Component instance?
+`_constructComponent` is for creating a ReactComponent instance.
+What is the ReactComponent instance?
 It's an instance you know, which is an instance of `React.createClass`, `React.Component`, `StatelessComponents` and `HostComponent`.
+
 It's not an instance of `ShallowComponentWrapper` or `NoopInternalComponent`.
 
 `ShallowComponentWrapper` or `NoopInternalComponent` owns the instance as `this_instance`. 
@@ -674,7 +679,7 @@ It's not an instance of `ShallowComponentWrapper` or `NoopInternalComponent`.
   },
 ```
 
-`_constructComponentWithoutOwner` is for creating an instance of Component.
+`_constructComponentWithoutOwner` is for creating an instance of ReactComponent.
 
 
 * https://github.com/facebook/react/blob/v15.3.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js#L342
