@@ -995,6 +995,8 @@ This is a little long story. the following is a overview.
 <MyComponent> is <div><Child foo="bar" /><p>test</p></div>
 ```
 
+-------------------
+
 1. TestUtils.createRenderer().render(`<MyComponent />`);
 2. ReactReconciler#mountCompnent - `<MyComponent />`
 3. ShallowComponentWrapper#mountCompnent (ReactCompositeComponent#mountCompnent) - `<MyComponent />`
@@ -1002,6 +1004,8 @@ This is a little long story. the following is a overview.
 5. ReactReconciler#mountCompnent - `<div><Child foo="bar"><p>test</p></div>`
 6. NoopInternalComponent#mountCompnent (noop function) - `<div><Child foo="bar"></p>test</p></div>`
 7. return the rendered ReactElement - `<div><Child foo="bar"></p>test</p></div>`
+
+--------------------
 
 * ShallowRender
 
