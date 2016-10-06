@@ -464,6 +464,35 @@ But in transaction, it doesn't work if you use `refs`...
 -  renderer._render(element, transaction, context);
 ```
 
+You can see the transaction cycle in React code.
+
+* https://github.com/facebook/react/blob/master/src/renderers/shared/utils/Transaction.js#L32-L53
+
+```
+ *                       wrappers (injected at creation time)
+ *                                      +        +
+ *                                      |        |
+ *                    +-----------------|--------|--------------+
+ *                    |                 v        |              |
+ *                    |      +---------------+   |              |
+ *                    |   +--|    wrapper1   |---|----+         |
+ *                    |   |  +---------------+   v    |         |
+ *                    |   |          +-------------+  |         |
+ *                    |   |     +----|   wrapper2  |--------+   |
+ *                    |   |     |    +-------------+  |     |   |
+ *                    |   |     |                     |     |   |
+ *                    |   v     v                     v     v   | wrapper
+ *                    | +---+ +---+   +---------+   +---+ +---+ | invariants
+ * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained
+ * +----------------->|-|---|-|---|-->|anyMethod|---|---|-|---|-|-------->
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | |   | |   |   |         |   |   | |   | |
+ *                    | +---+ +---+   +---------+   +---+ +---+ |
+ *                    |  initialize                    close    |
+ *                    +-----------------------------------------+
+ ```
+
 I'd like to try to fix it.
 
 Back to the `mountCompnent`, `internalInstance` is a instance of `ShallowComponentWrapper`.
@@ -593,6 +622,11 @@ Back to the `mountCompnent`, `internalInstance` is a instance of `ShallowCompone
 For your reference, in ShallowRenderer, `componentDidMount` is never called because it's being called outside of transaction.
 
 `_constructComponent` is for creating a Component instance.
+What is the Component instance?
+It's an instance you know, which is an instance of `React.createClass`, `React.Component`, `StatelessComponents` and `HostComponent`.
+It's not an instance of `ShallowComponentWrapper` or `NoopInternalComponent`.
+
+`ShallowComponentWrapper` or `NoopInternalComponent` owns the instance as `this_instance`. 
 
 * https://github.com/facebook/react/blob/v15.3.2/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js#L362-L388
 
@@ -747,10 +781,9 @@ ReactReconciler#mountCompnent
 ↓
 NoopInternalComponent#mountCompnent
 :
-???
 ```
 
-Is it an infinity loop? take a look at `NoopInternalComponent`.
+Take a look at `NoopInternalComponent`.
 
 ### NoopInternalComponent
 
@@ -953,8 +986,98 @@ ReactShallowRenderer.prototype.getRenderOutput = function() {
 
 Finally, ReactShallowRender ends up returning a rendered ReactElement!
 
-I think ReactShallowRender is a good place for starting to understand React rendering cycle.
+## Conclusion
 
-If you are instested in it, you should read `Codebase Overview`, which is super helpful!!
+This is a little long story. the following is a overview.  
 
-* https://facebook.github.io/react/contributing/codebase-overview.html 
+```
+<Child /> is  <div>{foo}</div>
+<MyComponent> is <div><Child foo="bar" /><p>test</p></div>
+```
+
+1. TestUtils.createRenderer().render(<MyComponent />);
+2. ReactReconciler#mountCompnent <MyComponent />
+3. ShallowComponentWrapper#mountCompnent (ReactCompositeComponent#mountCompnent) <MyComponent />
+4. render <MyComponent />
+5. ReactReconciler#mountCompnent <div><Child foo="bar"><p>test</p></div>
+6. NoopInternalComponent#mountCompnent (noop) 
+7. return rendered ReactElement <div><Child foo="bar"></p>test</p></div>
+
+* ShallowRender
+
+```
+--------------------------
+| ShallowRenderer.render |
+--------------------------
+     |
+     | <MyComponent />
+     |
+--------------------------------------------------
+|  ---------------------------------             |
+| | ReactReconciler#mountCompnent |              |
+|  ---------------------------------             |
+|         |                                      |
+|    -----------------------------------------   |
+|    | ShallowComponentWrapper#mountCompnent |   |
+|    -----------------------------------------   |
+|             |                                  |
+|        -------------------------               |
+|        | ReactComponent#render |               |
+|        -------------------------               |
+--------------------------------------------------
+      |
+      | <div><Child foo="bar"><p>test</p></div> 
+      |
+--------------------------------------------------
+|  ---------------------------------             |
+| | ReactReconciler#mountCompnent |              |
+|  ---------------------------------             |
+|         |                                      |
+|    -----------------------------------------   |
+|    | NoopInternalComponent#mountCompnent |     |
+|    -----------------------------------------   |
+--------------------------------------------------
+      |
+      | <div><Child foo="bar"><p>test</p></div> 
+      |
+```
+
+* ReactDOM.render
+
+```
+--------------------------
+| ReactDOM.render |
+--------------------------
+     |
+     | <MyComponent />
+     |
+---------------------------------------------------
+|  ---------------------------------   recursive  |
+| | ReactReconciler#mountCompnent | <------------ |
+|  ---------------------------------            | |
+|         |                                     | |
+|    -----------------------------------------  | |
+|    | ReactCompositeComponent#mountCompnent |  | |
+|    |               or                      |  | |
+|    | ReactHostComponent#mountComponent     |  | |
+|    -----------------------------------------  | |
+|             |                                 | |
+|        -------------------------              | |
+|        | ReactComponent#render |              | |
+|        -------------------------              | |
+|             |                                 | |
+|             ----------------------------------| |
+---------------------------------------------------
+      |
+      | (<div><Child foo="bar"><p>test</p></div>)
+      |                ↓
+      | <div><div>bar</div><p>test</p></div>  
+      |
+```
+
+I think ReactShallowRender is a good place for starting to understand React rendering cycle though it has some hacks.
+
+If you are instested in it, There are very helpful resources!
+
+* [Codebase Overview - React Docs](https://facebook.github.io/react/contributing/codebase-overview.html)
+* [Paul O Shannessy - Building React From Scratch](https://www.youtube.com/watch?v=_MAD4Oly9yg) 
